@@ -122,7 +122,12 @@ module.exports = function(deployer) {
 };
 ```
 
-11. Use the command ````truffle migrate --network goerli``` to deploy Smart Contracts on the Ethereum Goerli network.
+11. Use the command ````truffle migrate --network goerli``` to deploy Smart Contracts on the Ethereum Goerli network. In this step, the different attributes received by the constructor of the Smart Contract being deployed must be inputted. The attributes will be the following, depending on the Smart Contract to be deployed:
+- **AbstractCLA.sol:** partners, providersBusinessProcess, consumersBusinessProcess, ontology, sharedData, sharedDataTypes, sharedPrivacyData, sharedPrivacyDataTypes, privacyAlgorithm, privacySalt, collaborationStartTime, collaborationEndTime, monetisation, gasLimit.
+- **AbstractConsumer.sol:** providersBusinessProcess, consumersBusinessProcess, dataIndexes, dataModes, privacyDataIndexes, privacyDataModes, claAddress.
+- **AbstractProviderWithBlock.sol:** businessContractAddress, collaborationName, providersBusinessProcess, consumersBusinessProcess, sharedData, sharedPrivacyData, privacyAlgorithm, privacySalt, collaborationStartTime, collaborationEndTime, monetisation, gasLimit, claAddress.
+- **AbstractProviderWithoutBlock.sol:** collaborationName, providersBusinessProcess, consumersBusinessProcess, sharedData, sharedPrivacyData, privacyAlgorithm, privacySalt, collaborationStartTime, collaborationEndTime, monetisation, gasLimit, claAddress.
+
 12. If you want to have a REST API with Node.js to interact with any of the deployed Smart Contracts, you must create a file to start the Node.js server, called for example "server.js", with the following content:
 
 ```
