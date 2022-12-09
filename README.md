@@ -3,10 +3,15 @@
 ## Content
 - [Processes](#processes)
 - [Deploy Smart Contracts](#deploy-smart-contracts)
-- [Blockchain Gas and Time Tests](#blockchain-gas-and-time-tests)
+- [Tests](#tests)
 
 ## Processes
-
+In this folder you will find the BPMN diagrams and the abstract DMN of the collaborative processes described in the article, as well as the general process that contains all of them. The "Reporting CLA results" process does not have its own BPMN as it would depend on each company, according to the procedures they have to report the results to the corresponding entities. Specifically, the folder contains the following files:
+- **GeneralProcess.bpmn:** Diagram of the overall process containing the four collaborative sub-processes.
+- **GenerateCLA.bpmn:** Diagram describing the process of generating the collaboration's CLA.
+- **MonitoringCLA.bpmn:** Diagram describing the process of providing and consuming the data as signed in the CLA.
+- **MonitoringCLA-IoT.bpmn:** Diagram describing the process of providing and consuming the data as signed in the CLA, in the event that the data provider obtains its data from an IoT system.
+- **DecisionMaking.dmn:** Abstract DMN table with an example of decision making agreed in the CLA.
 
 ## Deploy Smart Contracts
 The "Smart Contracts" folder contains the Smart Contracts that have been developed as described in the article. In addition to the abstract Smart Contracts, the folder contains customised Smart Contracts for the bicycle rental organisation (data provider), for the health entity that manages sick leave periods (data provider) and for the company that checks health frauds (data consumer). In total, the Smart Contracts contained in the folder are the following:
@@ -181,7 +186,10 @@ app.get("/all_frauds", (req, res) => {
 });
 ```
 
-## Blockchain Gas and Time Tests
+## Tests
+The tests folder includes all the files related to the various tests that have been carried out on the IoT system and the Blockchain, as explained in the article. In the following, the different tests found in this folder will be discussed.
+
+### Blockchain Gas and Time Tests
 The file "Blockchain tests.xlsx" contains all the tests performed on the gas consumed and the time taken to check and update the health frauds, as shown in the article. This file contains 3 different sheets: in the first one, called "Tests", the results of the tests are shown in tables and line graphs, divided into the three sets of tests mentioned in the article. These tables have the following format:
 
 - Day of the test (as it influences the gas to be consumed).
