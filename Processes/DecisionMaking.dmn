@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0r2umen" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.5.1" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0">
+  <decision id="Decision_0js2a69" name="CLA decision-making">
+    <decisionTable id="DecisionTable_06m24qk">
+      <input id="Input_1">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>Input 1</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_150vudh" label="Input 2">
+        <inputExpression id="LiteralExpression_05a0lw8" typeRef="string">
+          <text>Input 2</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" name="Output" typeRef="boolean" />
+      <rule id="DecisionRule_0wy994o">
+        <description></description>
+        <inputEntry id="UnaryTests_0pm4kef">
+          <text>Condition 1_1</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yfkv2k">
+          <text>Condition 1_2</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08ex1zr">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17j4855">
+        <inputEntry id="UnaryTests_149xql0">
+          <text>Condition 2_1</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12uhchj">
+          <text>Condition 2_2</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0z6e5r8">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09v2g2h">
+        <inputEntry id="UnaryTests_1d9wtsw">
+          <text>Condition 3_1</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00i0b1q">
+          <text>Condition 3_2</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1x9fycd">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17xdgte">
+        <description>Then, a Blockchain object is created</description>
+        <inputEntry id="UnaryTests_0ict6hm">
+          <text>Condition 4_1</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zak2hg">
+          <text>Condition 4_2</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00a1k1e">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_0js2a69">
+        <dc:Bounds height="80" width="180" x="150" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
