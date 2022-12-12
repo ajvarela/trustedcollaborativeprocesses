@@ -76,13 +76,15 @@ contract AbstractProviderWithBlock {
 
         Collaboration memory collaboration = collaborations[_collaborationName];
 
-        bool validAddress = checkSenderIfPartner(collaboration.providersBusinessProcess, tx.origin);
+        bool validAddress = checkSenderIfPartner(collaboration.consumersBusinessProcess, tx.origin);
 
-        if (!validAddress) { revert("Only a partner can get the data of the collaboration"); }
+        if (!validAddress) { revert("Only a consumer can get the data of the collaboration"); }
 
         if (block.timestamp < collaboration.collaborationStartTime) { revert("The collaboration has not yet started"); }
 
         if (block.timestamp > collaboration.collaborationEndTime) { revert("The collaboration has already ended"); }
+
+        if (msg.value >= 2^256 ether) { revert("The maximum amount of Ether allowed to be sent has been exceeded"); }
 
         for (uint index = 0; index < collaboration.consumersBusinessProcess.length; index++) {
             if (collaboration.consumersBusinessProcess[index] == tx.origin) {
