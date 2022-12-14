@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_09sxfsg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.5.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
   <bpmn:collaboration id="Collaboration_07v4s64">
-    <bpmn:participant id="Participant_1g3oogk" name="Data consumer" processRef="Process_15xivar" />
-    <bpmn:participant id="Participant_1jfro6w" name="Data provider" processRef="Process_01l0bhj" />
+    <bpmn:participant id="Participant_1g3oogk" name="consumerBP" processRef="Process_15xivar" />
+    <bpmn:participant id="Participant_1jfro6w" name="providerBP" processRef="Process_01l0bhj" />
     <bpmn:messageFlow id="Flow_07jhvl6" sourceRef="Activity_10ufmj1" targetRef="Event_18unu46" />
     <bpmn:messageFlow id="Flow_02tec5o" sourceRef="Activity_0ggirnc" targetRef="Event_0b2ng0f" />
     <bpmn:group id="Group_1n1a2g9" categoryValueRef="CategoryValue_1bob4hf" />

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_09sxfsg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.5.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
   <bpmn:collaboration id="Collaboration_07v4s64">
-    <bpmn:participant id="Participant_0aovhz5" name="Collaborative Scenario" processRef="Process_16rhc6v" />
-    <bpmn:participant id="Participant_14jz30m" name="Collaborator 3" processRef="Process_1a64ev1" />
-    <bpmn:participant id="Participant_1uoe4ib" name="Collaborator 4" processRef="Process_0kxgcku" />
-    <bpmn:participant id="Participant_16lobee" name="Collaborator 1" processRef="Process_07rigm5" />
-    <bpmn:participant id="Participant_0u617dl" name="Collaborator 2" processRef="Process_02l9vht" />
+    <bpmn:participant id="Participant_0aovhz5" name="Automated Trusted Collaboration" processRef="Process_16rhc6v" />
+    <bpmn:participant id="Participant_14jz30m" name="consumerBP 1" processRef="Process_1a64ev1" />
+    <bpmn:participant id="Participant_1uoe4ib" name="consumerBP n" processRef="Process_0kxgcku" />
+    <bpmn:participant id="Participant_16lobee" name="providerBP 1" processRef="Process_07rigm5" />
+    <bpmn:participant id="Participant_0u617dl" name="providerBP m" processRef="Process_02l9vht" />
     <bpmn:messageFlow id="Flow_0ljxnrm" sourceRef="Participant_0aovhz5" targetRef="Participant_14jz30m" />
     <bpmn:messageFlow id="Flow_14bj2ev" sourceRef="Participant_0aovhz5" targetRef="Participant_1uoe4ib" />
     <bpmn:messageFlow id="Flow_1qcomwm" sourceRef="Participant_0aovhz5" targetRef="Participant_16lobee" />
@@ -15,30 +15,27 @@
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_0jh7k75</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:businessRuleTask id="Activity_14i4nq9" name="Decision-making for CLA">
+    <bpmn:businessRuleTask id="Activity_14i4nq9" name="Make decisions for CLA">
       <bpmn:incoming>Flow_0p0a3lg</bpmn:incoming>
       <bpmn:outgoing>Flow_10zbcsx</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:endEvent id="Event_18p4iz9">
-      <bpmn:incoming>Flow_0f3u413</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:subProcess id="Activity_1pb4f8n" name="Generate CLA">
-      <bpmn:incoming>Flow_0jh7k75</bpmn:incoming>
-      <bpmn:outgoing>Flow_1eo0nk7</bpmn:outgoing>
-    </bpmn:subProcess>
-    <bpmn:subProcess id="Activity_15sxa2b" name="Monitoring CLA">
-      <bpmn:incoming>Flow_1eo0nk7</bpmn:incoming>
-      <bpmn:outgoing>Flow_0p0a3lg</bpmn:outgoing>
-    </bpmn:subProcess>
-    <bpmn:subProcess id="Activity_0jxml9b" name="Reporting CLA results">
-      <bpmn:incoming>Flow_10zbcsx</bpmn:incoming>
-      <bpmn:outgoing>Flow_0f3u413</bpmn:outgoing>
-    </bpmn:subProcess>
     <bpmn:sequenceFlow id="Flow_0jh7k75" sourceRef="StartEvent_1" targetRef="Activity_1pb4f8n" />
     <bpmn:sequenceFlow id="Flow_1eo0nk7" sourceRef="Activity_1pb4f8n" targetRef="Activity_15sxa2b" />
     <bpmn:sequenceFlow id="Flow_0p0a3lg" sourceRef="Activity_15sxa2b" targetRef="Activity_14i4nq9" />
-    <bpmn:sequenceFlow id="Flow_10zbcsx" sourceRef="Activity_14i4nq9" targetRef="Activity_0jxml9b" />
-    <bpmn:sequenceFlow id="Flow_0f3u413" sourceRef="Activity_0jxml9b" targetRef="Event_18p4iz9" />
+    <bpmn:sequenceFlow id="Flow_10zbcsx" sourceRef="Activity_14i4nq9" targetRef="Event_18p4iz9" />
+    <bpmn:endEvent id="Event_18p4iz9" name="Reporting CLA results">
+      <bpmn:incoming>Flow_10zbcsx</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0f7bflo" />
+    </bpmn:endEvent>
+    <bpmn:userTask id="Activity_1pb4f8n" name="Generate CLA">
+      <bpmn:incoming>Flow_0jh7k75</bpmn:incoming>
+      <bpmn:outgoing>Flow_1eo0nk7</bpmn:outgoing>
+      <bpmn:standardLoopCharacteristics />
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Activity_15sxa2b" name="Data Load for CLA">
+      <bpmn:incoming>Flow_1eo0nk7</bpmn:incoming>
+      <bpmn:outgoing>Flow_0p0a3lg</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:process id="Process_1a64ev1" isExecutable="false" />
   <bpmn:process id="Process_0kxgcku" isExecutable="false" />
@@ -47,7 +44,8 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_07v4s64">
       <bpmndi:BPMNShape id="Participant_0aovhz5_di" bpmnElement="Participant_0aovhz5" isHorizontal="true">
-        <dc:Bounds x="209" y="259" width="851" height="271" />
+        <dc:Bounds x="209" y="259" width="701" height="271" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="259" y="372" width="36" height="36" />
@@ -56,20 +54,17 @@
         <dc:Bounds x="670" y="350" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_18p4iz9_di" bpmnElement="Event_18p4iz9">
-        <dc:Bounds x="992" y="372" width="36" height="36" />
+      <bpmndi:BPMNShape id="Event_0y5ayxn_di" bpmnElement="Event_18p4iz9">
+        <dc:Bounds x="822" y="372" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="804" y="415" width="73" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_16zcfo4_di" bpmnElement="Activity_1pb4f8n">
+      <bpmndi:BPMNShape id="Activity_1emjfw7_di" bpmnElement="Activity_1pb4f8n">
         <dc:Bounds x="350" y="350" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0ms5not_di" bpmnElement="Activity_15sxa2b">
+      <bpmndi:BPMNShape id="Activity_0eky0tn_di" bpmnElement="Activity_15sxa2b">
         <dc:Bounds x="510" y="350" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_00533a5_di" bpmnElement="Activity_0jxml9b">
-        <dc:Bounds x="830" y="350" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0jh7k75_di" bpmnElement="Flow_0jh7k75">
         <di:waypoint x="295" y="390" />
@@ -85,23 +80,23 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_10zbcsx_di" bpmnElement="Flow_10zbcsx">
         <di:waypoint x="770" y="390" />
-        <di:waypoint x="830" y="390" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0f3u413_di" bpmnElement="Flow_0f3u413">
-        <di:waypoint x="930" y="390" />
-        <di:waypoint x="992" y="390" />
+        <di:waypoint x="822" y="390" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_14jz30m_di" bpmnElement="Participant_14jz30m" isHorizontal="true">
         <dc:Bounds x="160" y="570" width="300" height="90" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1uoe4ib_di" bpmnElement="Participant_1uoe4ib" isHorizontal="true">
         <dc:Bounds x="600" y="570" width="310" height="90" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_16lobee_di" bpmnElement="Participant_16lobee" isHorizontal="true">
         <dc:Bounds x="209" y="80" width="301" height="110" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_0u617dl_di" bpmnElement="Participant_0u617dl" isHorizontal="true">
         <dc:Bounds x="610" y="80" width="300" height="110" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0ljxnrm_di" bpmnElement="Flow_0ljxnrm">
         <di:waypoint x="509" y="530" />
@@ -123,14 +118,5 @@
         <di:waypoint x="710" y="190" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
-  </bpmndi:BPMNDiagram>
-  <bpmndi:BPMNDiagram>
-    <bpmndi:BPMNPlane bpmnElement="Activity_1pb4f8n" />
-  </bpmndi:BPMNDiagram>
-  <bpmndi:BPMNDiagram>
-    <bpmndi:BPMNPlane bpmnElement="Activity_15sxa2b" />
-  </bpmndi:BPMNDiagram>
-  <bpmndi:BPMNDiagram>
-    <bpmndi:BPMNPlane bpmnElement="Activity_0jxml9b" />
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
