@@ -6,7 +6,7 @@
 - [Tests](#tests)
 
 ## Processes
-In this folder you will find the BPMN diagrams and the abstract DMN of the collaborative processes described in the article, as well as the general process that contains all of them. The "Reporting CLA results" process does not have its own BPMN as it would depend on each company, according to the procedures they have to report the results to the corresponding entities. Specifically, the folder contains the following files:
+In this folder you will find the BPMN diagrams and the abstract DMN of the three collaborative processes described in the article, as well as the general process that contains all of them. Specifically, the folder contains the following files:
 - **GeneralProcess.bpmn:** Diagram of the overall process containing the four collaborative sub-processes.
 - **GenerateCLA.bpmn:** Diagram describing the process of generating the collaboration's CLA.
 - **MonitoringCLA.bpmn:** Diagram describing the process of providing and consuming the data as signed in the CLA.
