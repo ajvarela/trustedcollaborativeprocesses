@@ -97,6 +97,12 @@ contract AbstractConsumer {
             else if (collaboration.dataModes[i] == 2) {
                 condition = attribute1 >= attribute2;
             }
+            else if (collaboration.dataModes[i] == 3) {
+                condition = attribute1 < attribute2;
+            }
+            else if (collaboration.dataModes[i] == 4) {
+                condition = attribute1 <= attribute2;
+            }
 
             if (condition == false) {
                 decision = false;
