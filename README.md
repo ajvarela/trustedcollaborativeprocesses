@@ -1,9 +1,13 @@
 # Trusted Collaborative Processes
 
 ## Content
+- [Blockchain light client](#blockchain-light-client)
 - [Processes](#processes)
 - [Deploy Smart Contracts](#deploy-smart-contracts)
 - [Tests](#tests)
+
+## Blockchain light client
+In this folder you will find both the Blockchain light client used in the ESP-32 (**light-client.ino** file in the light-client folder) and the libraries not found in the Arduino IDE that have been necessary for the implementation of this light client. Among these libraries, there is "web3-arduino" with the implemented modifications that have been explained in the article, in order to ensure its operation with the current Ethereum network.
 
 ## Processes
 In this folder you will find the BPMN diagrams and the abstract DMN of the three collaborative processes described in the article, as well as the general process that contains all of them. Specifically, the folder contains the following files:
