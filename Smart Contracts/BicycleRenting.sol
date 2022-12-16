@@ -272,6 +272,7 @@ interface SignedCLA {
         address[] providersBusinessProcess;
         address[] consumersBusinessProcess;
         string ontology;
+        string[] collaborativeFunctions;
         string[] sharedData;
         string[] sharedDataTypes;
         string[] sharedPrivacyData;

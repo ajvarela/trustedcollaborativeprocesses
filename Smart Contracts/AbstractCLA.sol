@@ -7,6 +7,7 @@ contract AbstractCLA {
         address[] providersBusinessProcess;
         address[] consumersBusinessProcess;
         string ontology;
+        string[] collaborativeFunctions;
         string[] sharedData;
         string[] sharedDataTypes;
         string[] sharedPrivacyData;
@@ -31,6 +32,7 @@ contract AbstractCLA {
         address[] memory _providersBusinessProcess,
         address[] memory _consumersBusinessProcess,
         string memory _ontology,
+        string[] memory _collaborativeFunctions,
         string[] memory _sharedData,
         string[] memory _sharedDataTypes,
         string[] memory _sharedPrivacyData,
@@ -51,8 +53,8 @@ contract AbstractCLA {
 
         if (keccak256(bytes(errorMessage)) != keccak256(bytes(""))) { revert(errorMessage); }
 
-        cla = CLA(_partners, _providersBusinessProcess, _consumersBusinessProcess, _ontology, _sharedData, _sharedDataTypes, _sharedPrivacyData, _sharedPrivacyDataTypes,
-            _privacyAlgorithm, _privacySalt, _collaborationStartTime, _collaborationEndTime, _monetisation, _gasLimit, false, true, block.timestamp);
+        cla = CLA(_partners, _providersBusinessProcess, _consumersBusinessProcess, _ontology, _collaborativeFunctions, _sharedData, _sharedDataTypes, _sharedPrivacyData,
+            _sharedPrivacyDataTypes, _privacyAlgorithm, _privacySalt, _collaborationStartTime, _collaborationEndTime, _monetisation, _gasLimit, false, true, block.timestamp);
     }
 
     function getCLAInfo() public view returns(CLA memory) {
@@ -65,8 +67,8 @@ contract AbstractCLA {
         return cla;
     }
 
-    function updateCLA(string[] memory _partners, address[] memory _providersBusinessProcess, address[] memory _consumersBusinessProcess, string memory _ontology, string[] memory _sharedData,
-        string[] memory _sharedDataTypes, string[] memory _sharedPrivacyData, string[] memory _sharedPrivacyDataTypes, string memory _privacyAlgorithm, string[] memory _privacySalt,
+    function updateCLA(string[] memory _partners, address[] memory _providersBusinessProcess, address[] memory _consumersBusinessProcess, string memory _ontology, string[] memory _collaborativeFunctions,
+        string[] memory _sharedData, string[] memory _sharedDataTypes, string[] memory _sharedPrivacyData, string[] memory _sharedPrivacyDataTypes, string memory _privacyAlgorithm, string[] memory _privacySalt,
         uint256 _collaborationStartTime, uint256 _collaborationEndTime, uint256[][] memory _monetisation, uint256[] memory _gasLimit) public {
 
         if (!cla.created) { revert("The CLA has not yet been created"); }
@@ -86,6 +88,7 @@ contract AbstractCLA {
         cla.providersBusinessProcess = _providersBusinessProcess;
         cla.consumersBusinessProcess = _consumersBusinessProcess;
         cla.ontology = _ontology;
+        cla.collaborativeFunctions = _collaborativeFunctions;
         cla.sharedData = _sharedData;
         cla.sharedDataTypes = _sharedDataTypes;
         cla.sharedPrivacyData = _sharedPrivacyData;
