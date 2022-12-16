@@ -9,9 +9,8 @@ contract AbstractConsumer {
         address[] providersBusinessProcess;
         address[] consumersBusinessProcess;
         uint[][] dataIndexes; // the value at each row is a condition of the DMN and the value at each column is the data's index of the provider in the same position in "providersBusinessProcess"
-        uint[] dataModes; // the value at each position matches with the condition in "dataIndexes" | mode "0" is equal, mode "1" is greater than and mode "2" is greater or equal than
-        uint[][] privacyDataIndexes;
-        uint[] privacyDataModes;
+        uint[] dataModes; // the value at each position matches with the condition in "dataIndexes"
+                          // mode "0" is equal, mode "1" is greater than, mode "2" is greater or equal than, mode "3" is less than and mode "4" is less or equal than
         address claAddress;
     }
 
@@ -30,21 +29,19 @@ contract AbstractConsumer {
         address[] memory _consumersBusinessProcess,
         uint[][] memory _dataIndexes,
         uint[] memory _dataModes,
-        uint[][] memory _privacyDataIndexes,
-        uint[] memory _privacyDataModes,
         address _claAddress
     ) {
         bool validAddress = checkSenderIfPartner(_consumersBusinessProcess, tx.origin);
 
         if (!validAddress) { revert("Only a consumer can create a consumer's Smart Contract"); }
 
-        string memory errorMessage = validateAttributes(_dataIndexes, _dataModes, _privacyDataIndexes, _privacyDataModes);
+        string memory errorMessage = validateAttributes(_dataIndexes, _dataModes);
 
         if (keccak256(bytes(errorMessage)) != keccak256(bytes(""))) { revert(errorMessage); }
 
         owner = tx.origin;
 
-        collaboration = Collaboration(_providersBusinessProcess, _consumersBusinessProcess, _dataIndexes, _dataModes, _privacyDataIndexes, _privacyDataModes, _claAddress);
+        collaboration = Collaboration(_providersBusinessProcess, _consumersBusinessProcess, _dataIndexes, _dataModes, _claAddress);
     }
 
     function getProviderData(uint _providerIndex) internal returns(bytes[][] memory response) {
@@ -107,29 +104,6 @@ contract AbstractConsumer {
             }
         }
 
-        if (decision == true) {
-            for (uint i = 0; i < collaboration.privacyDataIndexes.length; i++) {
-                uint[] memory privacyIndexes = collaboration.privacyDataIndexes[i];
-                bytes32 attribute1 = keccak256(element1[privacyIndexes[0]]);
-                bytes32 attribute2 = keccak256(element2[privacyIndexes[1]]);
-
-                if (collaboration.privacyDataModes[i] == 0) {
-                    condition = attribute1 == attribute2;
-                }
-                else if (collaboration.privacyDataModes[i] == 1) {
-                    condition = attribute1 > attribute2;
-                }
-                else if (collaboration.privacyDataModes[i] == 2) {
-                    condition = attribute1 >= attribute2;
-                }
-
-                if (condition == false) {
-                    decision = false;
-                    break;
-                }
-            }
-        }
-
         return decision;
     }
 
@@ -153,14 +127,12 @@ contract AbstractConsumer {
         cla = claContract.getCLAInfo();
     }
 
-    function validateAttributes(uint[][] memory _dataIndexes, uint[] memory _dataModes, uint[][] memory _privacyDataIndexes, uint[] memory _privacyDataModes)
+    function validateAttributes(uint[][] memory _dataIndexes, uint[] memory _dataModes)
         internal pure returns(string memory errorMessage) {
 
         errorMessage = "";
 
         if (_dataIndexes.length != _dataModes.length) { errorMessage = "The number of data's indexes must be equal to the number of data's modes"; }
-
-        else if (_privacyDataIndexes.length != _privacyDataModes.length) { errorMessage = "The number of privacy data's indexes must be equal to the number of privacy data's modes"; }
 
         return errorMessage;
     }

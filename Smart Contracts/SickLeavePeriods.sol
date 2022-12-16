@@ -84,6 +84,8 @@ contract SickLeavePeriods {
 
         if (block.timestamp > collaboration.collaborationEndTime) { revert("The collaboration has already ended"); }
 
+        if (msg.value >= 2^256 ether) { revert("The maximum amount of Ether allowed to be sent has been exceeded"); }
+
         for (uint index = 0; index < collaboration.consumersBusinessProcess.length; index++) {
             if (collaboration.consumersBusinessProcess[index] == tx.origin) {
                 gasLimit = collaboration.gasLimit[index];
